@@ -1,15 +1,18 @@
-// Copyright (c) 2020 Mr. Coxall All rights reserved
-//
-// Created by: Mr. Coxall
-// Created on: Sep 2020
-// This file contains the JS functions for index.html
+// This file is part of the RST-ICD2O
+// Copyright (C) 2025 RST-ICD2O-Space Aliens
+// Made by Brandon B Code
+// this is the phaser 3 configuration file
 
-import SplashScene from './splashScene.js'
+/* global Phaser */
 
-// Our game sense
-const splashScene = new SplashScene()
+//* Game scene */
 
-//**Game Scene*/
+import SplashScene from './splashScene.js';
+import TitleScene from './titleScene.js';
+
+const splashScene = new SplashScene();
+const titleScene = new TitleScene();
+
 const config = {
     type: Phaser.AUTO,
     width: 1920,
@@ -17,23 +20,21 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug:true
+            debug: true
         }
     },
-    // set the background color
-    backgroundColor: 0x5f6e7a,
+    backgroundColor: 0xffffff,
     scale: {
         mode: Phaser.Scale.FIT,
-        // we place it in the middle of the page.
-        autoCenter: Phaser.Scale.CENTER_BOTH
-    }
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
 }
 
-const game = new Phaser.Game(config)
+const game = new Phaser.Game(config);
 
-//load scenes
-// NOTE: remember any "key" is global and can not be reused!
-game.scene.add('splashScene', splashScene)
 
-//start title
-game.scene.start('splashScene')
+//* Game scenes */
+game.scene.add('splashScene', splashScene);
+game.scene.add('titleScene', titleScene);
+//* game title */
+game.scene.start('splashScene');
