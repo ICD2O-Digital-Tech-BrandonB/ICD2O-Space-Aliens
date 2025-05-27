@@ -1,8 +1,6 @@
 // Created by: BrandonBCode
 // Created on: May 2025
 // This is the Menu scene for the game
-
-
 /**
  * This class is the splash scene for the game
  */
@@ -14,7 +12,6 @@ class GameScene extends Phaser.Scene {
         this.ship = null
         this.fireMissile = false
     }
-}
   
   
     init (data) {
@@ -24,10 +21,9 @@ class GameScene extends Phaser.Scene {
     preload() {
         console.log('Game Scene');
 
-        // images
-        this.load.image('starBackground', './assets/starBackground.png')
-        this.load.image('ship', './assets/spaceShip.png')
-        this.load.image ('missile', './assets/missile.png')
+        this.load.image('starBackground', 'assets/starBackground.png')
+        this.load.image('ship', 'assets/spaceShip.png')
+        this.load.image('missile', 'assets/missile.png')
     }
   
     create(data) {
@@ -36,53 +32,60 @@ class GameScene extends Phaser.Scene {
 
         this.ship = this.physics.add.sprite(1920 / 2, 1080 - 100, 'ship')
 
-        // create a group for the missiles
         this.missileGroup = this.physics.add.group()
-    }
+       }
   
-update(time, delta) {
+    update(time, delta) { 
         
+        const keyLeftObj = this.input.keyboard.addKey('LEFT')
+        const keyRightObj = this.input.keyboard.addKey('RIGHT')
+        const keyUpObj = this.input.keyboard.addKey('UP')
+        const keyDownObj = this.input.keyboard.addKey('DOWN')
+        const keySpaceObj = this.input.keyboard.addKey('SPACE')
 
-    const keyLeftObj = this.input.keyboard.addKey('LEFT')
-    const keyRightObj = this.input.keyboard.addKey('RIGHT')
-    const keySpaceObj = this.input.keyboard.addkey('SPACE')
 
-    if (keyLeftObj.isDown === true) {
-        this.ship.x -= 15
-        if (this.ship.x < 0) {
-            this.ship.x = 1920
+        if (keyUpObj.isDown === true) {
+            this.ship.y -= 15
+            if (this.ship.y < 0) {
+                this.ship.y = 1080
+            }
         }
-    }
 
-    if (keyRightObj.isDown === true) {
-        this.ship.x += 15
-        if (this.ship.x > 1920) {
-            this.ship.x = 0
+
+
+        if (keyDownObj.isDown === true) {
+            this.ship.y += 15
+            if (this.ship.y > 1080) {
+                this.ship.y = 0
+            }
         }
+
+
+        if (keyLeftObj.isDown === true) {
+            this.ship.x -= 15
+            if (this.ship.x < 0) {
+                this.ship.x = 1920
+            }
+        }
+        
+        if (keyRightObj.isDown === true) {
+            this.ship.x += 15
+            if (this.ship.x > 1920) {
+                this.ship.x = 0
+            }
+        }
+
         if (keySpaceObj.isDown === true) {
             if (this.fireMissile === false) {
-                // fire missile
                 this.fireMissile = true
                 const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
-                this.missileGroup.add(aNewMissle)
+                this.missileGroup.add(aNewMissile)
             }
         }
 
         if (keySpaceObj.isUp === true) {
             this.fireMissile = false
         }
-        if (keyUpObj.isDown === true) {
-            this.ship.y -= 15
-            if (this.ship.y < 1080) {
-                this.ship.y = 0
-            }
-            if (keyDownObj.isDown === true) {
-                this.ship.y += 15
-                if (this.ship.y > 0) {
-                    this.ship.y = 1080
-                }
-            }
-        }
     }
-}
+  }
     export default GameScene
