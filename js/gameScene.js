@@ -17,6 +17,7 @@ class GameScene extends Phaser.Scene {
         this.alienGroup.add(anAlien)
     }
 
+
     constructor() {
         super({ key: 'gameScene' });
 
@@ -26,8 +27,8 @@ class GameScene extends Phaser.Scene {
     }
   
   
-    init (data) {
-    this.cameras.main.setBackgroundColor("AEA04B");
+    init(data) {
+        this.cameras.main.setBackgroundColor("AEA04B");
     }
   
     preload() {
@@ -39,6 +40,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('alien', './assets/alien.png')
         // sound
         this.load.audio('laser', './assets/laser1.wav')
+        this.load.audio('explosion', './assets/barrelExploding.wav')
     }
   
     create(data) {
@@ -53,67 +55,81 @@ class GameScene extends Phaser.Scene {
         // create a group for the aliens
         this.alienGroup = this.add.group()
         this.createAlien()
-       }
-  
-    update(time, delta) { 
-        
-        const keyLeftObj = this.input.keyboard.addKey('LEFT')
-        const keyRightObj = this.input.keyboard.addKey('RIGHT')
-        const keyUpObj = this.input.keyboard.addKey('UP')
-        const keyDownObj = this.input.keyboard.addKey('DOWN')
-        const keySpaceObj = this.input.keyboard.addKey('SPACE')
 
-
-        if (keyUpObj.isDown === true) {
-            this.ship.y -= 15
-            if (this.ship.y < 0) {
-                this.ship.y = 1080
-            }
-        }
-
-
-
-        if (keyDownObj.isDown === true) {
-            this.ship.y += 15
-            if (this.ship.y > 1080) {
-                this.ship.y = 0
-            }
-        }
-
-
-        if (keyLeftObj.isDown === true) {
-            this.ship.x -= 15
-            if (this.ship.x < 0) {
-                this.ship.x = 1920
-            }
-        }
-        
-        if (keyRightObj.isDown === true) {
-            this.ship.x += 15
-            if (this.ship.x > 1920) {
-                this.ship.x = 0
-            }
-        }
-
-        if (keySpaceObj.isDown === true) {
-            if (this.fireMissile === false) {
-                this.fireMissile = true
-                const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
-                this.missileGroup.add(aNewMissile)
-                this.sound.play('laser')
-            }
-        }
-
-        if (keySpaceObj.isUp === true) {
-            this.fireMissile = false
-        }
-
-        this.missileGroup.children.each(function (item) {
-            item.y = item.y - 15
-            if (item.y < 0) {
-            item.destroy()
-            }
-        })
+        // collisions between missiles and aliens
+        this.physics.add.collider(this.missileGroup, this.alienGroup, function (missileCollide, alienCollide) {
+            alienCollide.destroy()
+            missileCollide.destroy()
+            this.sound.play('explosion')
+            this.createAlien()
+            this.createAlien()
+        }.bind(this))
     }
-  }
+
+
+    
+  
+        update(time, delta) {
+        
+            const keyLeftObj = this.input.keyboard.addKey('LEFT')
+            const keyRightObj = this.input.keyboard.addKey('RIGHT')
+            const keyUpObj = this.input.keyboard.addKey('UP')
+            const keyDownObj = this.input.keyboard.addKey('DOWN')
+            const keySpaceObj = this.input.keyboard.addKey('SPACE')
+
+
+            if (keyUpObj.isDown === true) {
+                this.ship.y -= 15
+                if (this.ship.y < 0) {
+                    this.ship.y = 1080
+                }
+            }
+        
+
+
+            if (keyDownObj.isDown === true) {
+                this.ship.y += 15
+                if (this.ship.y > 1080) {
+                    this.ship.y = 0
+                }
+            }
+
+
+            if (keyLeftObj.isDown === true) {
+                this.ship.x -= 15
+                if (this.ship.x < 0) {
+                    this.ship.x = 1920
+                }
+            }
+        
+            if (keyRightObj.isDown === true) {
+                this.ship.x += 15
+                if (this.ship.x > 1920) {
+                    this.ship.x = 0
+                }
+            }
+
+            if (keySpaceObj.isDown === true) {
+                if (this.fireMissile === false) {
+                    this.fireMissile = true
+                    const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
+                    this.missileGroup.add(aNewMissile)
+                    this.sound.play('laser')
+                }
+            }
+
+            if (keySpaceObj.isUp === true) {
+                this.fireMissile = false
+            }
+        
+            this.missileGroup.children.each(function (item) {
+                item.y = item.y - 15
+                if (item.y < 0) {
+                    item.destroy()
+                }
+            })
+        }
+    }
+
+
     export default GameScene
