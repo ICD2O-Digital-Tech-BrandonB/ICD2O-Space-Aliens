@@ -81,9 +81,6 @@ class GameScene extends Phaser.Scene {
             this.gameOverText.setInteractive({ useHandCursor: true })
             this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'))
             this.score =  this.score - this.score
-            if (keySpaceObj.isDown === true && shipCollide.destroy() === true) {
-                this.fireMissile = false
-            }
         }.bind(this))
        }
   
@@ -130,6 +127,9 @@ class GameScene extends Phaser.Scene {
         if (keySpaceObj.isDown === true) {
             if (this.fireMissile === false) {
                 this.fireMissile = true
+                if (keySpaceObj.isDown === true && shipCollide.destroy() === true) {
+                    this.fireMissile = false
+                }
                 const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
                 this.missileGroup.add(aNewMissile)
                 this.sound.play('laser')
