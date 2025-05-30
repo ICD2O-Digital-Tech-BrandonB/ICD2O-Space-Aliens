@@ -21,16 +21,13 @@ class GameScene extends Phaser.Scene {
         this.background = null
         this.ship = null
         this.fireMissile = false
+        this.isGameOver = false
         this.score = 0
         this.scoreText = null
         this.scoreTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center' }
         
         this.gameOverText = null
-        this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center' }
-        
-        this.isGameOver = false
-        this.isGameStart = false
-
+        this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center'}
     }
   
   
@@ -53,6 +50,8 @@ class GameScene extends Phaser.Scene {
     }
   
     create(data) {
+        this.fireMissile = false
+        this.isGameOver = false
         this.background = this.add.image(0, 0, 'starBackground').setScale(2.0)
         this.background.setOrigin(0, 0)
 
@@ -131,12 +130,6 @@ class GameScene extends Phaser.Scene {
         if (keySpaceObj.isDown === true) {
             if (this.fireMissile === false) {
                 this.fireMissile = true
-                if (this.fireMissile === false && !this.isGameOver) {
-                    this.fireMissile = false
-                }
-                if (this.fireMissile === false && !this.isGameStart) {
-                    this.fireMissile = true
-                }
                 const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
                 this.missileGroup.add(aNewMissile)
                 this.sound.play('laser')
