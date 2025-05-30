@@ -81,6 +81,9 @@ class GameScene extends Phaser.Scene {
             this.gameOverText.setInteractive({ useHandCursor: true })
             this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'))
             this.score =  this.score - this.score
+            if (keySpaceObj.isDown === true && shipCollide.destroy() === true) {
+                this.fireMissile = false
+            }
         }.bind(this))
        }
   
