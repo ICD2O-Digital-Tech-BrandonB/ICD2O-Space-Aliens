@@ -130,10 +130,11 @@ class GameScene extends Phaser.Scene {
                 const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
                 this.missileGroup.add(aNewMissile)
                 this.sound.play('laser')
-                if (shipCollide() === true) {
-                    this.fireMissile = false
-                }
             }
+        }
+        
+        if (shipCollide() === true) {
+            this.fireMissile = false
         }
 
         if (keySpaceObj.isUp === true) {
