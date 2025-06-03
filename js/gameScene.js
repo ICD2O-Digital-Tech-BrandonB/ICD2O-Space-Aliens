@@ -152,7 +152,41 @@ class GameScene extends Phaser.Scene {
                 item.destroy()
             }
         })
+
+        // Power-up logic
+        if (this.score === 15) {
+            // Show power-up text if not already shown
+            if (!this.powerText) {
+                this.powerText = this.add.text(1920 / 2, 100, 'Power Up!', this.powerTextStyle).setOrigin(0.5)
+                this.time.delayedCall(5000, () => {
+                    if (this.powerText) {
+                        this.powerText.destroy()
+                        this.powerText = null
+                    }
+                })
+            }
+
+            this.missileGroup.children.each(function (item) {
+                item.y = item.y - 35
+                if (item.y < 0) {
+                    item.destroy()
+                }
+            })
+
+            this.alienGroup.children.each(function (alien) {
+                if (alien.y > 1080) {
+                    alien.y = -99
+                    alien.x = Math.floor(Math.random() * 1920) + 2
+                }
+            }, this)
+        } else {
+            // Remove powerText if score drops below 15
+            if (this.powerText) {
+                this.powerText.destroy()
+                this.powerText = null
+            }
         }
     }
+}
 
     export default GameScene
