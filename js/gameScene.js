@@ -132,7 +132,7 @@ class GameScene extends Phaser.Scene {
         }
 
         if (keySpaceObj.isDown === true) {
-            if (this.fireMissile === false && !this.isGameOver) {
+            if (this.fireMissile === false &&!this.isGameOver) {
                 this.fireMissile = true
                 const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
                 this.missileGroup.add(aNewMissile)
@@ -161,10 +161,12 @@ class GameScene extends Phaser.Scene {
                 }
             })
             this.powerText = this.add.text(1920 / 2, 1080 / 2, 'Power UP!\nYou now shoot 50% faster!', this.powerTextStyle).setOrigin(0.5)
-            if (time > 2000) {
-                this.powerText.destroy()
-            }
+            setTimeout(() => {
+                this.powerText.style.display = 'none';
+            }, 3000)
+
         }
     }
 }
+
     export default GameScene
