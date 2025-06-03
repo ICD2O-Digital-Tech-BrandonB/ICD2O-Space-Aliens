@@ -34,7 +34,6 @@ class GameScene extends Phaser.Scene {
         this.powerText = null
         this.powerTextStyle = { font: '40px Arial', fill: '#ff0000', align: 'center' }
 
-        this.powerUP = false
     }
   
   
@@ -74,15 +73,6 @@ class GameScene extends Phaser.Scene {
             this.sound.play('explosion')
             this.createAlien()
             this.createAlien()
-            if (this.score === 15) {
-                this.missileGroup.children.each(function (item) {
-                    item.y = item.y - 22
-                    if (item.y < 0) {
-                        item.destroy()
-                    }
-                })
-                this.powerText = this.add.text(1920 / 2, 1080 / 2, 'Power UP!\nYou now shoot 50% faster!', this.powerTextStyle).setOrigin(0.5)
-        }
         }.bind(this))
     
         this.physics.add.collider(this.ship, this.alienGroup, function (shipCollide, alienCollide) {
@@ -150,6 +140,8 @@ class GameScene extends Phaser.Scene {
             }
         }
 
+        
+
         if (keySpaceObj.isUp === true) {
             this.fireMissile = false
         }
@@ -160,6 +152,16 @@ class GameScene extends Phaser.Scene {
                 item.destroy()
             }
         })
+        
+        if (this.score === 15) {
+            this.missileGroup.children.each(function (item) {
+                item.y = item.y - 22
+                if (item.y < 0) {
+                    item.destroy()
+                }
+            })
+            this.powerText = this.add.text(1920 / 2, 1080 / 2, 'Power UP!\nYou now shoot 50% faster!', this.powerTextStyle).setOrigin(0.5)
+    }
     }
   }
     export default GameScene
