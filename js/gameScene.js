@@ -31,6 +31,9 @@ class GameScene extends Phaser.Scene {
         this.gameOverText = null
         this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center' }
 
+        this.powerText = null
+        this.powerTextStyle = { font: '40px Arial', fill: '#ff0000', align: 'center' }
+
         this.powerUP = false
     }
   
@@ -78,6 +81,7 @@ class GameScene extends Phaser.Scene {
                         item.destroy()
                     }
                 })
+                this.powerText = this.add.text(1920 / 2, 1080 / 2, 'Power UP!\nYou now shoot 50% faster!', this.powerTextStyle).setOrigin(0.5)
         }
         }.bind(this))
     
