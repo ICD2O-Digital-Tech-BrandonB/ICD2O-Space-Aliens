@@ -132,7 +132,7 @@ class GameScene extends Phaser.Scene {
         }
 
         if (keySpaceObj.isDown === true) {
-            if (this.fireMissile === false &&!this.isGameOver) {
+            if (this.fireMissile === false && !this.isGameOver) {
                 this.fireMissile = true
                 const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
                 this.missileGroup.add(aNewMissile)
@@ -164,6 +164,7 @@ class GameScene extends Phaser.Scene {
             if (time > 2000) {
                 this.powerText.destroy()
             }
+        }
     }
-  }
+}
     export default GameScene
