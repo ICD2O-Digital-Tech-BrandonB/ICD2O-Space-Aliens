@@ -155,15 +155,17 @@ class GameScene extends Phaser.Scene {
 
         if (this.score === 15) {
             this.missileGroup.children.each(function (item) {
-                item.y = item.y - 22
+                item.y = item.y - 30
                 if (item.y < 0) {
                     item.destroy()
                 }
             })
-            this.powerText = this.add.text(1920 / 2, 1080 / 2, 'Power UP!\nYou now shoot 50% faster!', this.powerTextStyle).setOrigin(0.5)
-            if (time > 3000){
-                this.powerText.display = '';
-            }
+
+            this.alienGroup.children.each(function (alien) {
+                if (alien.y < 1080) {
+                   alien.y = 0
+                }
+            }, this)
         }
     }
 }
