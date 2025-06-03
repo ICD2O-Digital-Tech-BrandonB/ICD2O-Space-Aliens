@@ -161,8 +161,9 @@ class GameScene extends Phaser.Scene {
                 }
             })
             this.powerText = this.add.text(1920 / 2, 1080 / 2, 'Power UP!\nYou now shoot 50% faster!', this.powerTextStyle).setOrigin(0.5)
-            this.powerText.on('pointerdown', () => this.powerText.destroy())
-    }
+            if (time > 2000) {
+                this.powerText.destroy()
+            }
     }
   }
     export default GameScene
