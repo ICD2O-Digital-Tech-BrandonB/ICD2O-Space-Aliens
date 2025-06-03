@@ -71,9 +71,9 @@ class GameScene extends Phaser.Scene {
             this.sound.play('explosion')
             this.createAlien()
             this.createAlien()
-            if (this.score === 15 && this.fireMissile === true) {
+            if (this.score === 15) {
                 this.missileGroup.children.each(function (item) {
-                    item.y = item.y - 18
+                    item.y = item.y - 22
                     if (item.y < 0) {
                         item.destroy()
                     }
