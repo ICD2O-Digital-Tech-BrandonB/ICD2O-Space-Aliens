@@ -152,7 +152,7 @@ class GameScene extends Phaser.Scene {
                 item.destroy()
             }
         })
-        
+
         if (this.score === 15) {
             this.missileGroup.children.each(function (item) {
                 item.y = item.y - 22
@@ -161,6 +161,7 @@ class GameScene extends Phaser.Scene {
                 }
             })
             this.powerText = this.add.text(1920 / 2, 1080 / 2, 'Power UP!\nYou now shoot 50% faster!', this.powerTextStyle).setOrigin(0.5)
+            this.powerText.on('pointerdown', () => this.powerText.destroy())
     }
     }
   }
