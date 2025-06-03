@@ -30,6 +30,8 @@ class GameScene extends Phaser.Scene {
         
         this.gameOverText = null
         this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center' }
+
+        this.powerUP = false
     }
   
   
@@ -69,6 +71,14 @@ class GameScene extends Phaser.Scene {
             this.sound.play('explosion')
             this.createAlien()
             this.createAlien()
+            if (this.score === 15 && this.fireMissile === true) {
+                this.missileGroup.children.each(function (item) {
+                    item.y = item.y - 18
+                    if (item.y < 0) {
+                        item.destroy()
+                    }
+                })
+        }
         }.bind(this))
     
         this.physics.add.collider(this.ship, this.alienGroup, function (shipCollide, alienCollide) {
