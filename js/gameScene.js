@@ -155,7 +155,7 @@ class GameScene extends Phaser.Scene {
 
         if (this.score === 15) {
             this.missileGroup.children.each(function (item) {
-                item.y = item.y - 30
+                item.y = item.y - 35
                 if (item.y < 0) {
                     item.destroy()
                 }
