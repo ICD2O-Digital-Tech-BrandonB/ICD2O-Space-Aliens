@@ -152,22 +152,7 @@ class GameScene extends Phaser.Scene {
                 item.destroy()
             }
         })
-
-        if (this.score === 15) {
-            this.missileGroup.children.each(function (item) {
-                item.y = item.y - 35
-                if (item.y < 0) {
-                    item.destroy()
-                }
-            })
-
-            this.alienGroup.children.each(function (alien) {
-                if (alien.y > 1080) {
-                   alien.y = 0
-                }
-            }, this)
         }
     }
-}
 
     export default GameScene
